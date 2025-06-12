@@ -10,13 +10,12 @@
         body {
             font-family: 'Inter', sans-serif;
         }
-
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
         .no-scrollbar {
             -ms-overflow-style: none;  
-            scrollbar-width: none;  
+            scrollbar-width: none; 
         }
     </style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -31,19 +30,19 @@
                 </svg>
                 <span>Dashboard</span>
             </a>
-            <a href="#" class="flex items-center space-x-3 p-3 rounded-lg text-lg font-medium hover:bg-gray-700 transition duration-200">
+            <a href="{{ route('admin.products.index') }}" class="flex items-center space-x-3 p-3 rounded-lg text-lg font-medium hover:bg-gray-700 transition duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.794 3.391C18.15 22.5 18.75 22.5 18.75 22.5H2.25m15.794-3.391A25.164 25.164 0 0 1 12 20.25c-5.148 0-9.404-2.296-12-5.753m12 5.753v-9m-4.776-9h.218C13.26 2.5 16.5 3.5 16.5 5.25c0 1.75-3.24 2.75-7.164 2.75h-.218m0-4.5H9.75m0 0H9m-9 3.75h-.218C.74 18.5 4 19.5 4 21.25c0 1.75-3.24 2.75-7.164 2.75h-.218" />
                 </svg>
                 <span>Quản lý sản phẩm</span>
             </a>
-            <a href="#" class="flex items-center space-x-3 p-3 rounded-lg text-lg font-medium hover:bg-gray-700 transition duration-200">
+            <a href="{{ route('admin.orders.index') }}" class="flex items-center space-x-3 p-3 rounded-lg text-lg font-medium hover:bg-gray-700 transition duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9.75h19.5M2.25 11.25h19.5M2.25 12.75h19.5M2.25 14.25h19.5" />
                 </svg>
                 <span>Quản lý đơn hàng</span>
             </a>
-            <a href="#" class="flex items-center space-x-3 p-3 rounded-lg text-lg font-medium hover:bg-gray-700 transition duration-200">
+            <a href="{{ route('admin.users.index') }}" class="flex items-center space-x-3 p-3 rounded-lg text-lg font-medium hover:bg-gray-700 transition duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
                 </svg>
@@ -73,5 +72,6 @@
             &copy; {{ date('Y') }} Admin Panel - PET SHOP.
         </footer>
     </div>
+
 </body>
 </html>
