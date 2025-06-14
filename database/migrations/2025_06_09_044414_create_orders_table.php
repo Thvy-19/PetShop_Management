@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id(); // ID của đơn hàng
-            $table->string('customer_name'); // Tên khách hàng
-            $table->string('customer_phone'); // Số điện thoại
-            $table->string('customer_address'); // Địa chỉ giao hàng
-            $table->decimal('total_price', 15, 2); // Tổng giá trị đơn hàng
-            $table->string('status')->default('pending'); // Trạng thái đơn hàng: pending, completed, canceled
-            $table->timestamps(); // Tự động tạo created_at, updated_at
+            $table->id(); 
+            $table->string('customer_name'); 
+            $table->string('customer_phone'); 
+            $table->string('customer_address'); 
+            $table->decimal('total_price', 15, 2); 
+            $table->string('status')->default('pending'); 
+            $table->timestamps();
         });
     }
 
@@ -27,7 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //Xóa bảng khi rollback
         Schema::dropIfExists('orders');
     }
 };

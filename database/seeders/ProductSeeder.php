@@ -14,7 +14,7 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         Product::create([
-            'name' => 'Thức ăn chó Royal Canin',
+            'name' => 'Thức ăn cho chó',
             'price' => 250000,
             'stock' => 80,
             'image' => '/images/sp1.jpg',

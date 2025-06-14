@@ -5,22 +5,22 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse; // Thêm nếu bạn dùng RedirectResponse
-use App\Models\Product; // <-- Đảm bảo dòng này có
+use Illuminate\Http\RedirectResponse; 
+use App\Models\Product; 
 
 class ProductManagementController extends Controller
 {
     public function index(): View
     {
         try {
-            $products = Product::all(); // Lấy tất cả sản phẩm từ database
+            $products = Product::all(); 
             return view('admin.products.index', compact('products'));
         } catch (\Exception $e) {
             \Log::error("Error in ProductManagementController@index: " . $e->getMessage());
             if (env('APP_DEBUG')) {
-                dd($e->getMessage()); // Dừng và hiển thị lỗi trên trình duyệt
+                dd($e->getMessage()); 
             }
-            return view('admin.error_page')->with('message', 'Có lỗi xảy ra khi tải sản phẩm.'); // Trang lỗi chung
+            return view('admin.error_page')->with('message', 'Có lỗi xảy ra khi tải sản phẩm.'); 
         }
     }
     public function create(): View

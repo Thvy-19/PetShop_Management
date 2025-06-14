@@ -1,157 +1,32 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('content')
-
-<div class="bg-white rounded-lg shadow-md p-6">
-
-<div class="flex justify-between items-center mb-6">
-
-<h1 class="text-2xl font-bold text-gray-800">Quản lý sản phẩm</h1>
-
-<a href="{{ route('admin.products.create') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">
-Thêm sản phẩm mới
-</a>
-
-        </div>
-
-
-
-        @if(session('success'))
-
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
-
-                <span class="block sm:inline">{{ session('success') }}</span>
-
-            </div>
-
-        @endif
-
-
-
-        @if($products->isEmpty())
-
-            <p class="text-gray-600">Chưa có sản phẩm nào.</p>
-
-        @else
-
-            <div class="overflow-x-auto">
-
-                <table class="min-w-full leading-normal">
-
-                    <thead>
-
-                        <tr>
-
-                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-
-                                ID
-
-                            </th>
-
-                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-
-                                Ảnh
-
-                            </th>
-
-                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-
-                                Tên sản phẩm
-
-                            </th>
-
-                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-
-                                Giá
-
-                            </th>
-
-                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-
-                                Tồn kho
-
-                            </th>
-
-                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100">
-
-                                Hành động
-
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        @foreach($products as $product)
-
-                            <tr>
-
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-
-                                    <p class="text-gray-900 whitespace-no-wrap">{{ $product->id }}</p>
-
-                                </td>
-
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-
-                                    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="w-16 h-16 object-cover rounded-md">
-
-                                </td>
-
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-
-                                    <p class="text-gray-900 whitespace-no-wrap">{{ $product->name }}</p>
-
-                                </td>
-
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-
-                                    <p class="text-gray-900 whitespace-no-wrap">{{ number_format($product->price, 0, ',', '.') }} VNĐ</p>
-
-                                </td>
-
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-
-                                    <p class="text-gray-900 whitespace-no-wrap">{{ $product->stock }}</p>
-
-                                </td>
-
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-
-                                    <div class="flex space-x-2">
-
-                                        <a href="{{ route('admin.products.edit', $product->id) }}" class="text-indigo-600 hover:text-indigo-900">Sửa</a>
-
-                                        <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Bạn chắc chắn muốn xóa sản phẩm này?');">
-
-                                            @csrf
-
-                                            @method('DELETE')
-
-                                            <button type="submit" class="text-red-600 hover:text-red-900">Xóa</button>
-
-                                        </form>
-
-                                    </div>
-
-                                </td>
-
-                            </tr>
-
-                        @endforeach
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        @endif
-
-    </div>
-
-    @endsection
-
-    
+<h1 class="text-4xl font-bold text-gray-800 mb-8 text-center">Danh sách sản phẩm</h1>
+{{-- Điều chỉnh bố cục lưới để hiển thị nhiều sản phẩm hơn trên các màn hình lớn --}}
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+    @forelse($products as $product)
+        <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+            {{-- Đảm bảo $product->image có giá trị hợp lệ, nếu không sẽ hiển thị placeholder --}}
+            <img src="{{ asset($product->image ?: 'https://placehold.co/400x250/F3F4F6/6B7280?text=Sản+Phẩm+Thú+Cưng') }}" 
+                 alt="{{ $product->name }}" 
+                 class="w-full h-48 object-cover">
+            
+            <div class="p-5">
+                <h3 class="text-xl font-semibold text-indigo-700 mb-2">
+                    <a href="{{ route('products.show', $product->id) }}" class="hover:underline">{{ $product->name }}</a>
+                </h3>
+                <p class="text-gray-700 text-lg font-bold mb-1">Giá: {{ number_format($product->price, 0, ',', '.') }} VNĐ</p>
+                <p class="text-gray-600 text-sm">Số lượng: {{ $product->stock }}</p>
+                <form action="{{ route('cart.add', $product->id) }}" method="POST" class="mt-4">
+                    @csrf {{-- Đảm bảo token CSRF luôn có --}}
+                    <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 shadow-md hover:shadow-lg">
+                        Thêm vào giỏ
+                    </button>
+                </form>
+            </div>
+        </div>
+    @empty
+        <p class="text-center text-gray-600 col-span-full">Không có sản phẩm nào để hiển thị.</p>
+    @endforelse
+</div>
+@endsection

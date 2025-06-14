@@ -8,9 +8,9 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Admin\ProductManagementController; // <-- THÊM DÒNG NÀY
-use App\Http\Controllers\Admin\OrderManagementController;   // <-- THÊM DÒNG NÀY
-use App\Http\Controllers\Admin\UserManagementController;    // <-- THÊM DÒNG NÀY
+use App\Http\Controllers\Admin\ProductManagementController; 
+use App\Http\Controllers\Admin\OrderManagementController;  
+use App\Http\Controllers\Admin\UserManagementController;  
 
 // Route trang chủ hiển thị sản phẩm
 Route::get('/', [ProductController::class, 'index'])->name('home');
@@ -33,8 +33,8 @@ Route::post('/checkout', [OrderController::class, 'processCheckout'])->name('ord
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () { // <-- Prefix 'admin' và name 'admin.'
-    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard'); // Route admin.dashboard
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () { 
+    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard'); 
 
     // Routes quản lý sản phẩm
     Route::get('/products', [ProductManagementController::class, 'index'])->name('products.index');
@@ -47,7 +47,6 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // Routes quản lý đơn hàng
     Route::get('/orders', [OrderManagementController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [OrderManagementController::class, 'show'])->name('orders.show');
-    // Thêm các route edit/update/delete cho order nếu cần
 
     // Routes quản lý người dùng
     Route::get('/users', [UserManagementController::class, 'index'])->name('users.index');
