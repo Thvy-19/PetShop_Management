@@ -6,11 +6,20 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\User\CheckoutController;
 
 Route::get('/', function () {
     return redirect()->route('login');
 });
+//usercontroller
+Route::get('/home', [UserController::class, 'index'])->name('user.home');
 
+// Trang chủ hiển thị danh sách sản phẩm cho người dùng
+Route::get('/shop', [ProductController::class, 'showToUser'])->name('shop');
+// Mua sản phẩm
+Route::get('/buy/{id}', [App\Http\Controllers\User\UserController::class, 'buy'])->name('user.buy');
+
+Route::get('/checkout/{id}', [ProductController::class, 'checkout'])->name('checkout');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

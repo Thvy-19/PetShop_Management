@@ -90,4 +90,15 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')->with('success', 'Đã xóa sản phẩm!');
     }
+    // Hiển thị sản phẩm ra trang người dùng
+    public function showToUser()
+    {
+        $products = Product::latest()->get();
+        return view('userpage', compact('products'));
+    }
+    public function checkout($id)
+   {
+    $product = Product::findOrFail($id);
+    return view('checkout', compact('product'));
+   }
 }
