@@ -1,0 +1,13 @@
+{
+  "name": "Laravel MySQL Ready",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "forwardPorts": [8000],
+  "postCreateCommand": "composer install && cp .env.example .env && php artisan key:generate",
+  "features": {
+    "ghcr.io/devcontainers/features/mysql:1": {
+      "version": "8.0"
+    }
+  }
+}
